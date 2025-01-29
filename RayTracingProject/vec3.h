@@ -1,7 +1,7 @@
 #ifndef VEC3_H
 #define VEC3_H
 
-//vec3 class stores gometric vectors and colours. Uses two aliases, point3 and colour.
+//vec3 class stores gometric vectors and colors. Uses two aliases, point3 and color.
 
 
 #include <cmath>

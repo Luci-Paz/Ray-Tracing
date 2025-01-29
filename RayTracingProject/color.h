@@ -1,6 +1,9 @@
 #ifndef COLOR_H
 #define COLOR_H
 
+//header file for the ray alias color that describes a function to convert vector data
+//into a pixel color
+
 
 #include "vec3.h"
 #include <iostream>
