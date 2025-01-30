@@ -40,7 +40,7 @@ public:
 	/*
 	* return the position 
 	*/
-	point3 at(double t) { return orig + (t * dir); }
+	point3 at(double t) const { return orig + (t * dir); }
 	//end at()
 
 };
