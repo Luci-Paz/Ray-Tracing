@@ -15,8 +15,11 @@ private:
 
 
 public:
+	//constructor
 	sphere(const point3& center, double radius) : center(center), radius(std::fmax(0, radius)) {}
 
+
+	//returns whether or not a ray hits the sphere
 	bool hit(const ray& r, double rayTMin, double rayTMax, hitRecord& rec) const override {
 		
 		//find how many times a ray intersects the sphere
@@ -35,9 +38,23 @@ public:
 
 
 		//find the nearest root within the acceptable range
+		auto root = (h - sqrtd) / a;
+		if (root <= rayTMin || rayTMax <= root) {
+			root = (h + sqrtd) / a;
+			if (root <= rayTMin || root <= rayTMax)
+				return false;
+		} //end if
 
 
-	}
+		//determine the surface side
+		rec.t = root;
+		rec.p = r.at(rec.t);
+		vec3 outwardNormal = (rec.p - center) / radius;
+		rec.setFaceNormal(r, outwardNormal);
+
+		return true;
+
+	} //end hit()
 
 
 };
