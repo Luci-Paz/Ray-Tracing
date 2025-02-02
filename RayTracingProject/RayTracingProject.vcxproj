@@ -131,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="color.h" />
+    <ClInclude Include="commonItems.h" />
     <ClInclude Include="hittable.h" />
     <ClInclude Include="hittableList.h" />
     <ClInclude Include="ray.h" />

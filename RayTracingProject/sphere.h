@@ -41,12 +41,12 @@ public:
 		auto root = (h - sqrtd) / a;
 		if (root <= rayTMin || rayTMax <= root) {
 			root = (h + sqrtd) / a;
-			if (root <= rayTMin || root <= rayTMax)
+			if (root <= rayTMin || rayTMax <= root)
 				return false;
 		} //end if
 
 
-		//determine the surface side
+		//determine the surface side	
 		rec.t = root;
 		rec.p = r.at(rec.t);
 		vec3 outwardNormal = (rec.p - center) / radius;

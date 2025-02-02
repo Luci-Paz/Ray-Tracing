@@ -2,6 +2,12 @@
 #define HITTABLELIST_H
 
 
+/*
+* Header file outlines hittableList class that allows for the creation
+* of a vector of hittable objects.
+*/
+
+
 #include "hittable.h"
 #include <memory>
 #include <vector>
