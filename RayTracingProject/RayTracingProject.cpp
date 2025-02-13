@@ -3,38 +3,18 @@
 
 
 #include "commonItems.h"
-#include "vec3.h"
-#include "color.h"
-#include "ray.h"
+
 #include "hittable.h"
 #include "hittableList.h"
 #include "sphere.h"
 
 #include <iostream>
 
-/*
-double hitSphere(const point3& center, double radius, const ray& r) {
-    vec3 oc = center - r.origin();              //create a vector from the ray origin to the sphere center
-    auto a = r.direction().lengthSquared();     
-    auto h = dot(r.direction(), oc);
-    auto c = oc.lengthSquared() - (radius * radius);
-    auto discriminant = (h * h) - (a * c);      //how many times ray intersects the sphere
-    
-    
-    if (discriminant < 0) {
-        return -1.0;
-    }
-    else {
-        return (h - std::sqrt(discriminant)) / a;
-    } //end if-else
-
-} //end hitSphere
-*/
 
 color rayColor(const ray& r, const hittable& world) {
 
     hitRecord rec;
-    if (world.hit(r, 0, infinity, rec)) { return 0.5 * (rec.normal + color(1, 1, 1)); }
+    if (world.hit(r, interval(0, infinity), rec)) { return 0.5 * (rec.normal + color(1, 1, 1)); }
 
 
     vec3 unitDirection = unitVector(r.direction());

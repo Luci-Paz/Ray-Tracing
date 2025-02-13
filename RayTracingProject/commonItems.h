@@ -13,6 +13,7 @@
 #include <memory>
 
 
+
 //C++ std usings
 using std::make_shared;
 using std::shared_ptr;
@@ -26,6 +27,11 @@ const double pi = 3.1415926535897932385;
 //utility functions
 inline double degreesToRadians(double degrees) { return degrees * pi / 180; }
 
+//common headers
+#include "vec3.h"
+#include "color.h"
+#include "ray.h"
+#include "interval.h"
 
 #endif // !COMMONITEMS_H
 

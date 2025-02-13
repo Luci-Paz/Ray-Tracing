@@ -9,12 +9,7 @@
 
 
 #include "hittable.h"
-#include <memory>
 #include <vector>
-
-
-using std::make_shared;
-using std::shared_ptr;
 
 
 class hittableList : public hittable {
@@ -30,13 +25,13 @@ public:
 
 	void add(shared_ptr<hittable> object) { objects.push_back(object); } //end add()
 
-	bool hit(const ray& r, double rayTMin, double rayTMax, hitRecord& rec) const override {
+	bool hit(const ray& r, interval rayT, hitRecord& rec) const override {
 		hitRecord tempRec;
 		bool hitAnything = false;
-		auto closestSoFar = rayTMax;
+		auto closestSoFar = rayT.max;
 
 		for (const auto& object : objects) {
-			if (object->hit(r, rayTMin, closestSoFar, tempRec)) {
+			if (object->hit(r, interval(rayT.min, closestSoFar), tempRec)) {
 				hitAnything = true;
 				closestSoFar = tempRec.t;
 				rec = tempRec;

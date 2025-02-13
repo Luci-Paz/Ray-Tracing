@@ -5,7 +5,6 @@
 
 
 #include "hittable.h"
-#include "vec3.h"
 
 
 class sphere : public hittable {
@@ -20,7 +19,7 @@ public:
 
 
 	//returns whether or not a ray hits the sphere
-	bool hit(const ray& r, double rayTMin, double rayTMax, hitRecord& rec) const override {
+	bool hit(const ray& r, interval rayT, hitRecord& rec) const override {
 		
 		//find how many times a ray intersects the sphere
 		vec3 oc = center - r.origin();
@@ -39,9 +38,9 @@ public:
 
 		//find the nearest root within the acceptable range
 		auto root = (h - sqrtd) / a;
-		if (root <= rayTMin || rayTMax <= root) {
+		if (!rayT.surrounds(root)) {
 			root = (h + sqrtd) / a;
-			if (root <= rayTMin || rayTMax <= root)
+			if (!rayT.surrounds(root))
 				return false;
 		} //end if
 

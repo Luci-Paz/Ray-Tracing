@@ -4,9 +4,6 @@
 //vec3 class stores gometric vectors and colors. Uses two aliases, point3 and color.
 
 
-#include <cmath>
-#include <iostream>
-
 class vec3 {
 
 public:
