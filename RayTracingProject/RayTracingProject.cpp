@@ -7,10 +7,11 @@
 #include "hittable.h"
 #include "hittableList.h"
 #include "sphere.h"
+#include "camera.h"
 
 #include <iostream>
 
-
+/*
 color rayColor(const ray& r, const hittable& world) {
 
     hitRecord rec;
@@ -21,11 +22,24 @@ color rayColor(const ray& r, const hittable& world) {
     auto a = 0.5 * (unitDirection.y() + 1.0);
     return (1.0 - a) * color(1.0, 1.0, 1.0) + a * color(0.5, 0.7, 1.0);
 } //end rayColor stub
-
+*/
 
 
 int main()
 {
+    //world
+    hittableList world;
+    world.add(make_shared<sphere>(point3(0, 0, -1), 0.5));
+    world.add(make_shared<sphere>(point3(0, -100.5, -1), 100));
+
+    camera cam;
+
+    cam.aspectRatio = 16.0 / 9.0;
+    cam.imageWidth = 400;
+
+    cam.render(world);
+
+    /*
     //image
 
     auto aspectRatio = 16.0 / 9.0;
@@ -37,10 +51,7 @@ int main()
     imageHeight = (imageHeight < 1) ? 1 : imageHeight;
 
 
-    //world
-    hittableList world;
-    world.add(make_shared<sphere>(point3(0, 0, -1), 0.5));
-    world.add(make_shared<sphere>(point3(0, -100.5, -1), 100));
+    
 
 
     //camera
@@ -84,6 +95,7 @@ int main()
     }
 
     std::clog << "\rDone.                      \n";
+    */
 
 }
 
