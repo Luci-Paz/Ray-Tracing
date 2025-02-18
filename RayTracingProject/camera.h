@@ -9,6 +9,7 @@ class camera {
 public:
 	double aspectRatio = 1.0;	//Ratio of image width over height
 	int imageWidth = 100;		//Rendered image width in pixel count
+	int samplesPerPixel = 10;	//count of random samples for each pixel
 
 
 	void render(const hittable& world) {
@@ -20,12 +21,13 @@ public:
 		for (int i = 0; i < imageHeight; i++) {
 			std::clog << "\rScanlines remaining: " << (imageHeight - i) << ' ' << std::flush;
 			for (int j = 0; j < imageWidth; j++) {
-				auto pixelCenter = pixel00Loc + (j * pixelDeltaU) + (i * pixelDeltaV);
-				auto rayDirection = pixelCenter - center;
-				ray r(center, rayDirection);
+				color pixelColor(0, 0, 0);
+				for (int sample = 0; sample < samplesPerPixel; sample++) {
+					ray r = getRay(j, i);
+					pixelColor += rayColor(r, world);
+				} //end inmost for
 
-				color pixelColor = rayColor(r, world);
-				writeColor(myfile, pixelColor);
+				writeColor(myfile, pixelSamplesScale * pixelColor);
 			
 			} //end inner for
 
@@ -37,16 +39,19 @@ public:
 
 
 private:
-	int imageHeight;
-	point3 center;
-	point3 pixel00Loc;
-	vec3 pixelDeltaU;
-	vec3 pixelDeltaV;
+	int imageHeight;			//rendered image height
+	double pixelSamplesScale;	//color scale factor for the sum of pixel samples
+	point3 center;				//camera center
+	point3 pixel00Loc;			//location of pixel 0,0
+	vec3 pixelDeltaU;			//offset to pixel to the right
+	vec3 pixelDeltaV;			//offset to pixel to below
 
 
 	void initialize() {
 		imageHeight = int(imageWidth / aspectRatio);
 		imageHeight = (imageHeight < 1) ? 1 : imageHeight;
+
+		pixelSamplesScale = 1.0 / samplesPerPixel;
 
 		center = point3(0, 0, 0);
 
@@ -70,6 +75,30 @@ private:
 	} //end initialize()
 
 
+	 
+	ray getRay(int i, int j) const {
+		// construct a camera ray from the origin that is directed to a randomly sampled point around 
+		// the pixel at location i,j
+
+		auto offset = sampleSquare();
+		auto pixelSample = pixel00Loc
+			+ ((i + offset.x()) * pixelDeltaU)
+			+ ((j + offset.y()) * pixelDeltaV);
+
+		auto rayOrigin = center;
+		auto rayDirection = pixelSample - rayOrigin;
+
+		return ray(rayOrigin, rayDirection);
+
+	}
+
+
+	vec3 sampleSquare() const {
+		//returns the vector to a random point in the [-0.5, -0.5] [+0.5, +0.5] unit square
+		return vec3(randomDouble() - 0.5, randomDouble() - 0.5, 0);
+	}
+
+	//determines the color of the ray 
 	color rayColor(const ray& r, const hittable& world) const {
 		hitRecord rec;
 
