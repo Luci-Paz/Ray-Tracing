@@ -2,6 +2,7 @@
 #define CAMERA_H
 
 #include "hittable.h"
+#include <fstream>
 
 
 class camera {
@@ -9,10 +10,12 @@ public:
 	double aspectRatio = 1.0;	//Ratio of image width over height
 	int imageWidth = 100;		//Rendered image width in pixel count
 
+
 	void render(const hittable& world) {
 		initialize();
-
-		std::cout << "P3\n" << imageWidth << ' ' << imageHeight << "\n255\n";
+		
+		std::ofstream myfile("renderedImage.ppm");
+		myfile << "P3\n" << imageWidth << ' ' << imageHeight << "\n255\n";
 
 		for (int i = 0; i < imageHeight; i++) {
 			std::clog << "\rScanlines remaining: " << (imageHeight - i) << ' ' << std::flush;
@@ -22,12 +25,12 @@ public:
 				ray r(center, rayDirection);
 
 				color pixelColor = rayColor(r, world);
-				writeColor(std::cout, pixelColor);
+				writeColor(myfile, pixelColor);
 			
 			} //end inner for
 
 		} //end outer for
-
+		myfile.close();
 		std::clog << "\rDone                  \n";
 
 	} //end render()
