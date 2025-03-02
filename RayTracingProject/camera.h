@@ -10,21 +10,34 @@ public:
 	double aspectRatio = 1.0;	//Ratio of image width over height
 	int imageWidth = 100;		//Rendered image width in pixel count
 	int samplesPerPixel = 10;	//count of random samples for each pixel
+	int maxDepth = 10;			//maximum number of ray bounces allowed 
 
 
+	/// <summary>
+	/// Renders the scene by writing each pixel to a .ppm file 
+	/// </summary>
+	/// <param name="world"></param>
 	void render(const hittable& world) {
+		
 		initialize();
 		
+		//create an .ppm image 
 		std::ofstream myfile("renderedImage.ppm");
 		myfile << "P3\n" << imageWidth << ' ' << imageHeight << "\n255\n";
 
+		//Loops through each pixel to render them
 		for (int i = 0; i < imageHeight; i++) {
+			
 			std::clog << "\rScanlines remaining: " << (imageHeight - i) << ' ' << std::flush;
+			
 			for (int j = 0; j < imageWidth; j++) {
+				
+				//find the color of each pixel and take random samples of surrounding pixels 
+				//for antialiasing
 				color pixelColor(0, 0, 0);
 				for (int sample = 0; sample < samplesPerPixel; sample++) {
 					ray r = getRay(j, i);
-					pixelColor += rayColor(r, world);
+					pixelColor += rayColor(r, maxDepth, world);
 				} //end inmost for
 
 				writeColor(myfile, pixelSamplesScale * pixelColor);
@@ -47,6 +60,9 @@ private:
 	vec3 pixelDeltaV;			//offset to pixel to below
 
 
+	/// <summary>
+	/// Initializes values for the scene and camera properties
+	/// </summary>
 	void initialize() {
 		imageHeight = int(imageWidth / aspectRatio);
 		imageHeight = (imageHeight < 1) ? 1 : imageHeight;
@@ -75,10 +91,15 @@ private:
 	} //end initialize()
 
 
-	 
+	/// <summary>
+	/// construct a camera ray from the origin that is directed to a randomly sampled point around 
+	/// the pixel at location i,j
+	/// </summary>
+	/// <param name="i"></param> x-axis coordinate number
+	/// <param name="j"></param> y-axis coordinate number
+	/// <returns></returns> A ray pointed at a randomly sampled point around the pixel i,j
 	ray getRay(int i, int j) const {
-		// construct a camera ray from the origin that is directed to a randomly sampled point around 
-		// the pixel at location i,j
+		// 
 
 		auto offset = sampleSquare();
 		auto pixelSample = pixel00Loc
@@ -93,16 +114,31 @@ private:
 	}
 
 
+	/// <summary>
+	/// returns the vector to a random point in the [-0.5, -0.5] [+0.5, +0.5] unit square
+	/// </summary>
+	/// <returns></returns>
 	vec3 sampleSquare() const {
-		//returns the vector to a random point in the [-0.5, -0.5] [+0.5, +0.5] unit square
 		return vec3(randomDouble() - 0.5, randomDouble() - 0.5, 0);
 	}
 
+
 	//determines the color of the ray 
-	color rayColor(const ray& r, const hittable& world) const {
+	color rayColor(const ray& r, int depth, const hittable& world) const {
+		
+		//if ray bounce limit is excceeded then no more light is gathered
+		if (depth <= 0)
+			return color(0, 0, 0);
+
+		
 		hitRecord rec;
 
-		if (world.hit(r, interval(0, infinity), rec)) { return 0.5 * (rec.normal + color(1, 1, 1)); }
+		//if the ray hits an object, color it and simulate its reflection/bounce.
+		//The interval min is 0.001 to remove shadow acne.
+		if (world.hit(r, interval(0.001, infinity), rec)) { 
+			vec3 direction = rec.normal + randomUnitVector();
+			return 0.5 * rayColor(ray(rec.p, direction), depth-1, world); 
+		} //end if
 
 		
 		vec3 unitDirection = unitVector(r.direction());

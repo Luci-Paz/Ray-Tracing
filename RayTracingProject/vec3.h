@@ -68,6 +68,17 @@ public:
 	double lengthSquared() const {
 		return (e[0] * e[0]) + (e[1] * e[1]) + (e[2] * e[2]);
 	} //end lengthSquared()
+
+
+	//creates a random arbitrary vector 
+	static vec3 random() { return vec3(randomDouble(), randomDouble(), randomDouble()); }
+
+
+	//create a random arbitrary vector with a min and max random variable of position
+	static vec3 random(double min, double max) { 
+		return vec3(randomDouble(min, max), randomDouble(min, max), randomDouble(min, max)); 
+	}
+
 	
 };
 
@@ -160,5 +171,39 @@ inline vec3 cross(const vec3& u, const vec3& v) {
 inline vec3 unitVector(const vec3& v) {
 	return v / v.length();
 } //end unitVector()
+
+
+inline vec3 randomUnitVector() {
+	
+	//get a random vector that is within a unit sphere and 
+	//normalize it to produce a unit vector
+	while (true) {
+
+		//create a new vector and find its length squared
+		auto p = vec3::random(-1, 1);
+		auto lensq = p.lengthSquared();
+
+		//if the vector length squared is greater and 1e-160 and 
+		//less than or equal to 1, normalize the vector p
+		if (1e-160 < lensq && lensq <= 1)
+			return p / sqrt(lensq);
+	} //end while
+
+} //end randomUnitVector()
+
+
+inline vec3 randomOnHemisphere(const vec3& normal) {
+
+	//get a random vector on the unit sphere
+	vec3 onUnitSphere = randomUnitVector();
+
+	//invert the direction of the unit vector if it is not
+	//the same as the normal vector to the objects surface
+	if (dot(onUnitSphere, normal) > 0.0)
+		return onUnitSphere;
+	else
+		return -onUnitSphere;
+
+}
 
 #endif //VEC3_H

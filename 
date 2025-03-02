@@ -1,0 +1,107 @@
+[33mcommit db39d2e96fb8848f05b048a931f43f7b1c1ee7a5[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mnew-feature/diffuse-material[m[33m, [m[1;32mmain[m[33m)[m
+Author: LucPaz <188948837+Luci-Paz@users.noreply.github.com>
+Date:   Tue Feb 18 15:23:21 2025 -0500
+
+    Finished antialiasing feature
+
+[33mcommit a681d79af435683a8824feb9f1c7dc548b86c32c[m
+Author: LucPaz <188948837+Luci-Paz@users.noreply.github.com>
+Date:   Tue Feb 18 14:42:30 2025 -0500
+
+    Added functionality to view .ppm image using opencv
+
+[33mcommit 55eb806bdd3956f5b07285424f376f2072342c01[m
+Author: LucPaz <188948837+Luci-Paz@users.noreply.github.com>
+Date:   Fri Feb 14 22:53:42 2025 -0500
+
+    Finished the camera class
+
+[33mcommit 21e865e75bae3c8a17f3ed854646cee59fa90660[m
+Author: LucPaz <188948837+Luci-Paz@users.noreply.github.com>
+Date:   Thu Feb 13 13:41:11 2025 -0500
+
+    Finished implementing the interval class
+
+[33mcommit 49eaeed162877a5d3217df2ef0af4ce078477714[m[33m ([m[1;31morigin/new-feature/interval-class[m[33m)[m
+Author: Luci-Paz <188948837+Luci-Paz@users.noreply.github.com>
+Date:   Tue Feb 4 13:55:33 2025 -0500
+
+    Updating gitHub with local branch
+
+[33mcommit ca265b4630fa9812b95e36340b4f9528e3c6aa82[m[33m ([m[1;31morigin/master[m[33m)[m
+Author: Luci-Paz <188948837+Luci-Paz@users.noreply.github.com>
+Date:   Sun Feb 2 15:16:31 2025 -0500
+
+    Finished commonHeader and updated code to accomidate it
+
+[33mcommit 20dbc763989fd7e9fe6784536685789f417acbb4[m
+Author: Luci-Paz <188948837+Luci-Paz@users.noreply.github.com>
+Date:   Sun Feb 2 12:40:16 2025 -0500
+
+    Finished hittableList.h, creates list of hittable objects
+
+[33mcommit ad67b9d99f0836c14c7a328985bcd760eefdefbe[m
+Author: Luci-Paz <188948837+Luci-Paz@users.noreply.github.com>
+Date:   Sat Feb 1 15:29:09 2025 -0500
+
+    Finished sphere class and updated the hittable header file
+
+[33mcommit 44d6da943c61a68c9abda4716bc41dd8767d2385[m
+Author: Luci-Paz <188948837+Luci-Paz@users.noreply.github.com>
+Date:   Fri Jan 31 23:08:40 2025 -0500
+
+    Updating for push to GitHub
+
+[33mcommit d302ac34b0f283c3deff3ad72e582b5cb639364e[m
+Author: Luci-Paz <188948837+Luci-Paz@users.noreply.github.com>
+Date:   Fri Jan 31 10:29:10 2025 -0500
+
+    added constructor and hit method to sphere class
+
+[33mcommit a0009daf3091d22fd1c9437bee6b2b7106a4db22[m
+Author: Luci-Paz <188948837+Luci-Paz@users.noreply.github.com>
+Date:   Thu Jan 30 14:26:50 2025 -0500
+
+    Added hittable abstract class
+
+[33mcommit 6bd5fb2e231b727ec5ab70415d1452eadc3017e7[m
+Author: Luci-Paz <188948837+Luci-Paz@users.noreply.github.com>
+Date:   Thu Jan 30 13:58:39 2025 -0500
+
+    Added a tester sphere to the picture
+
+[33mcommit bd122dd4d1526e352fc07630eea910a1f6e85770[m
+Author: Luci-Paz <188948837+Luci-Paz@users.noreply.github.com>
+Date:   Wed Jan 29 14:44:11 2025 -0500
+
+    Finished ray class methods and updated main .cpp to use ray.h
+
+[33mcommit 9eefa263444a2df05da81244c6273667ad76db18[m
+Author: Luci-Paz <188948837+Luci-Paz@users.noreply.github.com>
+Date:   Wed Jan 29 13:25:27 2025 -0500
+
+    Finished color.h and updated the main .cpp
+
+[33mcommit 82d27c983518cefe5d481fecf32fa7ba7e3c666b[m
+Author: Luci-Paz <188948837+Luci-Paz@users.noreply.github.com>
+Date:   Wed Jan 29 12:06:03 2025 -0500
+
+    Finished vec3.h utility functions and operator overloads
+
+[33mcommit a0925ec1ea2176a58667f1d341d32f82567a4238[m
+Author: Luci-Paz <188948837+Luci-Paz@users.noreply.github.com>
+Date:   Tue Jan 28 14:07:49 2025 -0500
+
+    Added more functions to the vec3 class
+
+[33mcommit c5f7142ef6fbb228fa073cac147618ae8afd558a[m
+Author: Luci-Paz <188948837+Luci-Paz@users.noreply.github.com>
+Date:   Sun Jan 26 14:35:35 2025 -0500
+
+    Code develops a simple ppm image
+
+[33mcommit 2a7677eba68ef06eb5c9281bf101228b9a657508[m
+Author: Luci-Paz <188948837+Luci-Paz@users.noreply.github.com>
+Date:   Sun Jan 26 13:39:46 2025 -0500
+
+    Initial commit, added .gitignore and project files
